@@ -72,7 +72,7 @@ class LoadLocationJob(Job):
         data_lines = data_file.readlines()
         print(data_lines)
         for index, data in enumerate(data_lines):
-            data = data.split(",")
+            data = data.encode("utf-8").split(",")
             location = {
                 "name": data[0],
                 "city": data[1],
