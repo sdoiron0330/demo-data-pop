@@ -69,7 +69,7 @@ class LoadLocationJob(Job):
 
     def run(self, data_file):
         self.logger.info(dir(data_file))
-        location_data = DictReader(data_file.bytes)
+        location_data = DictReader(data_file.read())
         for index, location in enumerate(location_data):
             if location["state"] in states:
                 state_name = states[location["state"]]
