@@ -112,3 +112,6 @@ class LoadLocationJob(Job):
             )
             self.logger.info(f"{'Created' if created else 'Updated'} site {location_name}")
 
+from nautobot.apps.jobs import register_jobs
+
+register_jobs(LoadLocationJob)
