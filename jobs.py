@@ -99,7 +99,7 @@ class LoadLocationJob(Job):
             city, _ = Location.objects.update_or_create(
                 name=location["city"],
                 defaults={
-                    "parent": state
+                    "parent": state,
                     "location_type": LocationType.objects.get(name="City"),
                     "status": Status.objects.get(name="Active")
                 }
