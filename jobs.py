@@ -70,8 +70,7 @@ class LoadLocationJob(Job):
     def run(self, data_file):
         # too lazy to figure out how data files work
         data_lines = data_file.readlines()
-        print(data_lines)
-        for index, data in enumerate(data_lines):
+        for index, data in enumerate(data_lines[1:]):
             data = str(data).split(",")
             location = {
                 "name": data[0],
@@ -82,6 +81,14 @@ class LoadLocationJob(Job):
                 state_name = states[location["state"]]
             else:
                 state_name = location["state"]
+            location_name = location["name"]
+            if location_name.endswith("-DC"):
+                location_type = LocationType.objects.get(name="Data Center")
+            elif location_name.endswith("-BR"):
+                location_type = LocationType.objects.get(name="Branch")
+            else:
+                self.logger.info(f"Unable to process location type in row {index + 1}")
+                continue
             state, _ = Location.objects.update_or_create(
                 name=state_name,
                 defaults={
@@ -96,14 +103,6 @@ class LoadLocationJob(Job):
                     "status": Status.objects.get(name="Active")
                 }
             )
-            location_name = location["name"]
-            if location_name.endswith("-DC"):
-                location_type = LocationType.objects.get(name="Data Center")
-            elif location_name.endswith("-BR"):
-                location_type = LocationType.objects.get(name="Branch")
-            else:
-                self.logger.info(f"Unable to process location type in row {index + 1}")
-                continue
             site, created = Location.objects.update_or_create(
                 name=location_name,
                 defaults={
