@@ -68,8 +68,8 @@ class LoadLocationJob(Job):
     data_file = FileVar("Locations CSV file")
 
     def run(self, data_file):
-        with open(data_file) as f:
-            location_data = DictReader(f)
+        self.log.info(data_file)
+        location_data = DictReader(str(data_file))
         for index, location in enumerate(location_data):
             if location["state"] in states:
                 state_name = states[location["state"]]
