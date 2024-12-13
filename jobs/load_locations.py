@@ -1,4 +1,4 @@
-from nautobot.apps.jobs import Job, register_jobs, FileVar
+from nautobot.apps.jobs import Job, FileVar
 from nautobot.dcim.models import Location, LocationType
 from nautobot.extras.models import Status
 from csv import DictReader
@@ -112,4 +112,3 @@ class LoadLocationJob(Job):
             )
             self.logger.info(f"{'Created' if created else 'Updated'} site {location_name}")
 
-register_jobs(LoadLocationJob)
