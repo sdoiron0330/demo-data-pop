@@ -85,18 +85,14 @@ class LoadLocationJob(Job):
             state, _ = Location.objects.update_or_create(
                 name=state_name,
                 defaults={
-                    "location_type": LocationType.objects.get(name="State")
-                },
-                create_defaults={
+                    "location_type": LocationType.objects.get(name="State"),
                     "status": Status.objects.get(name="Active")
                 }
             )
             city, _ = Location.objects.update_or_create(
                 name=location["city"],
                 defaults={
-                    "location_type": LocationType.objects.get(name="City")
-                },
-                create_defaults={
+                    "location_type": LocationType.objects.get(name="City"),
                     "status": Status.objects.get(name="Active")
                 }
             )
@@ -111,9 +107,7 @@ class LoadLocationJob(Job):
             site, created = Location.objects.update_or_create(
                 name=location_name,
                 defaults={
-                    "location_type": location_type
-                },
-                create_defaults={
+                    "location_type": location_type,
                     "status": Status.objects.get(name="Active")
                 }
             )
