@@ -73,9 +73,9 @@ class LoadLocationJob(Job):
         for index, data in enumerate(data_lines[1:]):
             data = str(data).split(",")
             location = {
-                "name": data[0],
-                "city": data[1],
-                "state": data[2]
+                "name": str(data[0].strip()),
+                "city": str(data[1].strip()),
+                "state": str(data[2].strip())
             }
             if location["state"] in states:
                 state_name = states[location["state"]]
