@@ -71,7 +71,7 @@ class LoadLocationJob(Job):
         # too lazy to figure out how data files work
         data_lines = data_file.readlines()
         for index, data in enumerate(data_lines[1:]):
-            data = str(data).split(",")
+            data = data.decode().split(",")
             location = {
                 "name": str(data[0].strip()),
                 "city": str(data[1].strip()),
